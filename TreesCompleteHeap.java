@@ -2,18 +2,37 @@ import java.util.*;
 
 class Main{
 	public static void main(String args[]){
-		Node tree = new Node(2);
+		Node tree = new Node(8);
 		tree.left = new Node(3);
-	    tree.left.right = new Node(4);
+	    tree.left.right = new Node(2);
 	   tree.left.left = new Node(1);
-//	tree.right = new Node(5);
+	tree.right = new Node(5);
 	//	tree.right.right = new Node(6);
 	//	tree.right.left = new Node(8);
 		printTree(tree);
+		boolean hasBigParent = findIfRootHeap(tree,99999);
+		
+		System.out.println("Is it a Heap ??" + hasBigParent);
 		System.out.println("No of nodes is " +findNumberofNodes(tree));
+		boolean isComplete = findComplete_Iterative(tree);
 		System.out.println("Iterative Solution tells that the tree is" + findComplete_Iterative(tree) + "complete"); // check id the given tree is a complete tree, i.e all the levels except the last are filled and last level nodes are filled from left to right..
 	    System.out.println("Recursive Solution tells that the tree is" + findComplete_Recursive(tree,0,findNumberofNodes(tree)) + "complete");
+	    
+	    if(isComplete && hasBigParent){
+	        System.out.println("This tree is a HEAP!!!HURRAY");
+	    }
 	}
+	
+	
+public static boolean findIfRootHeap(Node n,int parent){
+    if(n == null){
+        return true;
+    }
+    if(parent < n.data){
+        return false;
+    }
+    return findIfRootHeap(n.left,n.data) && findIfRootHeap(n.right,n.data);
+}
 public static int findNumberofNodes(Node n){
    
     if(n==null){
