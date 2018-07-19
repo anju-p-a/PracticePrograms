@@ -4,14 +4,14 @@ class Main{
 	public static void main(String args[]){
 		Node tree = new Node(8);
 		tree.left = new Node(3);
-	    tree.left.right = new Node(2);
-	   tree.left.left = new Node(1);
-	tree.right = new Node(5);
-	//	tree.right.right = new Node(6);
+	   // tree.left.right = new Node(2);
+	   // tree.left.left = new Node(1);
+    	tree.right = new Node(5);
+	    //tree.right.right = new Node(6);
 	//	tree.right.left = new Node(8);
 		printTree(tree);
 		boolean hasBigParent = findIfRootHeap(tree,99999);
-		
+		System.out.println("the height of the tree is "+ findHeight(tree));
 		System.out.println("Is it a Heap ??" + hasBigParent);
 		System.out.println("No of nodes is " +findNumberofNodes(tree));
 		boolean isComplete = findComplete_Iterative(tree);
@@ -23,7 +23,14 @@ class Main{
 	    }
 	}
 	
-	
+public static int findHeight(Node n){
+    if(n == null){
+        return 0;
+    }
+    int a = findHeight(n.left) +1;
+    int b = findHeight(n.right) + 1;
+    return Math.max(a,b);
+}	
 public static boolean findIfRootHeap(Node n,int parent){
     if(n == null){
         return true;
