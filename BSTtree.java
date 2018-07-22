@@ -17,6 +17,22 @@ class Main{
         printInOrder(n.right);
         }
     }
+    
+    public static Node makeBSTFromSortedArray(int[] array1,int left,int right){
+       
+        if(left > right){
+            return null;
+        }
+            
+             Node n = new Node(array1[(left+right)/2]);
+               
+                
+                    int mid = (left+right)/2;
+                     n.left = makeBST(array1,left,mid-1);
+                     n.right = makeBST(array1,mid+1,right);                
+                 return n;
+}
+}
     public static Node makeBST(int[] array1,int index,Node n,Node root){
         if(index < array1.length && n!= null){
             if( array1[index] <= n.data ){
