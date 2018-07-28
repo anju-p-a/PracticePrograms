@@ -5,13 +5,32 @@ class Main{
         int[] array1 = {5,3,1,4,7,6,8};
         Node n1 = new Node(array1[0]);
         Node n = makeBST(array1,1,n1,n1);
-             printSpiral( n, new Stack<Node>(), new LinkedList<Node>() );
+            // printSpiral( n, new Stack<Node>(), new LinkedList<Node>() );
           // printInOrder(n);
+          
+          //printSpiralRecursive2(n,0,true); //call this function height number of times, where level indicates the level you need to print; change the boolean true in loop after each call;
       
         
     }
     
-    public static Queue<Node> addToQueue(Stack<Node> s,Queue<Node> q){ //spiral traversal
+    public static void printSpiralRecursive1(Node n,int level,boolean s){
+        if(level == 0 && n!= null){
+            System.out.println(n.data);
+            return;
+        }
+        if(s == true){
+         printSpiralRecursive(n.left,level-1,s);
+         printSpiralRecursive(n.right,level-1,s);
+        }else{
+              printSpiralRecursive(n.right,level-1,s);
+               printSpiralRecursive(n.left,level-1,s);
+        }
+    }
+    
+    
+
+    
+    public static Queue<Node> addToQueue(Stack<Node> s,Queue<Node> q){ //spiral traversal iterative
          while(s.size() > 0){
                 Node temp = s.pop();
                 if(temp.left != null){
