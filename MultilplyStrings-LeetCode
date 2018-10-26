@@ -1,0 +1,88 @@
+class Solution {
+    public String multiply(String num1, String num2) {
+        if(num1.length() == 0 || num2.length() == 0){
+            return "";
+        }
+       
+        int length1 = num1.length()-1;
+        int length2 = num2.length()-1;
+        int carry = 0;
+        int level = 0;
+        long finalResult = 0L;
+        String[] mulLevel = new String[length1+1];
+        int index = 0;
+        int first = 0; int second = 0;
+        for(int i = length1 ; i>= 0 ; i--){ 
+            StringBuilder sb = new StringBuilder("");
+            int val = length1-i;
+            while(val > 0 ){
+                sb.append(0);
+                val--;
+            }
+            
+            first =  Character.getNumericValue(num1.charAt(i));
+            carry = 0;
+            for(int k = length2; k>=0 ; k--){
+                 second = Character.getNumericValue(num2.charAt(k));
+                int mul = (first*second) + carry;
+               
+                long result = (mul % 10) ;
+                 
+                if(mul /10 >= 1){
+                    carry = mul/10;
+                }else{
+                    carry = 0;
+                }
+               sb.append(result);
+            }
+            if(carry > 0){
+                sb.append(carry);
+            }
+            mulLevel[index] = sb.toString();
+            index++;
+           
+        }
+        //  1 2 3 
+        //  1 2 3
+       // 1 2 3
+      // 3 2 1
+       //  0 3 2 1
+        // 0 0 3 2 1
+         int startIndex = 0 ;
+         int sum = 0;
+        carry = 0;
+        int start = 0;
+        StringBuilder final1 = new StringBuilder("");
+        //System.out.println(Arrays.toString(mulLevel));
+        while(startIndex < mulLevel[length1].length()){
+            for(int i = start; i<= length1; i ++){
+             if(startIndex < mulLevel[i].length()){
+                 sum = Character.getNumericValue(mulLevel[i].charAt(startIndex))+sum;
+             }else{
+                 start++;
+             }
+              
+             
+             }
+            startIndex++;
+            sum = sum+carry;
+            if(sum / 10 >= 1){
+                carry = sum/10;
+            }else{
+                carry = 0;
+            }
+            int res = sum%10;
+            final1.append(res);
+            sum = 0;
+        }
+        if(carry>0){
+            final1.append(carry);
+        }
+        final1.reverse();
+         while(final1.charAt(0) == '0' && final1.length()> 1){
+            final1.deleteCharAt(0);
+    }
+         return final1.toString();
+         }
+        
+    }
